@@ -115,7 +115,11 @@ class UsuarioRepository extends Repository
         {
             $stmt = $this->db->prepare("SELECT codigo FROM USUARIO WHERE login = (:login) ");
             $stmt->bindParam(":login",$login, PDO::PARAM_STR);            
-            return $stmt->execute();                  
+            if ($stmt->execute())
+            {
+                return ($stmt->rowCount() > 0);
+            } 
+
         }                           
 
         return false;
